@@ -53,7 +53,7 @@ element dequeue(QueueType* q)
 {
 	if (is_empty(q))
 		error("공백");
-	q->front - (q->front + 1) % MAX_QUEUE_SIZE;
+	q->front = (q->front + 1) % MAX_QUEUE_SIZE;
 	return q->data[++(q->front)];
 }
 
