@@ -1,4 +1,4 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #define MAX_QUEUE_SIZE 5
 
@@ -9,7 +9,7 @@ typedef struct {
 	element data[MAX_QUEUE_SIZE];
 }QueueType;
 
-void error(char *message)
+void error(char* message)
 {
 	fprintf(stderr, "%s\n", message);
 	exit(1);
@@ -54,7 +54,7 @@ element dequeue(QueueType* q)
 	if (is_empty(q))
 		error("공백");
 	q->front = (q->front + 1) % MAX_QUEUE_SIZE;
-	return q->data[++(q->front)];
+	return q->data[(q->front)];
 }
 
 element peek(QueueType* q)
@@ -69,12 +69,21 @@ int main(void)
 	int element;
 
 	init_queue(&q);
-	printf("데이터 추가");
 	while (!is_full(&q))
 	{
 		printf("정수입력");
 		scanf_s("%d", &element);
 		enqueue(&q, element);
+		queue_print(&q);
 	}
+	printf("큐는 포화상태\n");
 
+	while (!is_empty(&q))
+	{
+		element = dequeue(&q);
+		printf("꺼내진 정수: %d \n", element);
+		queue_print(&q);
+	}
+	printf("큐는 공백상태\n");
+	return 0;
 }
